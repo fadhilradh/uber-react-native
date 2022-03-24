@@ -5,6 +5,8 @@ import exampleImage from "../assets/logo.jpg";
 import Navs from "../components/NavItem";
 
 const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_MAPS_APIKEY } from "@env";
 
 const HomeScreen = () => {
   return (
@@ -15,6 +17,31 @@ const HomeScreen = () => {
           source={{
             uri: exampleImageUri,
           }}
+        />
+
+        <GooglePlacesAutocomplete
+          styles={{
+            container: {
+              flex: 0,
+            },
+            textInput: {
+              fontSize: 18,
+            },
+          }}
+          onPress={(data, details = null) => {
+            console.log(data);
+            console.log(details);
+          }}
+          fetchDetails={true}
+          enablePoweredByContainer={false}
+          minLength={2}
+          query={{
+            key: GOOGLE_MAPS_APIKEY,
+            language: "en",
+          }}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          placeholder="Where From ?"
+          debounce={400}
         />
         <Navs />
       </View>
